@@ -1,0 +1,32 @@
+name: NLP Daily Article Crawler
+
+on:
+  schedule:
+    # 北京时间每天凌晨 02:00 自动触发 (UTC 18:00)
+    - cron: '0 18 * * *'
+  workflow_dispatch: # 支持在 GitHub 网页上一键手动运行
+
+jobs:
+  update-daily-articles:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: 检出项目代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Python 运行环境
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: 执行 NLP 论文/公众号抓取脚本
+        run: |
+          python fetch_nlp_articles.py
+
+      - name: 自动提交并发布最新 articles.json
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "📅 自动更新每日 NLP 论文与公众号解读数据 [Skip CI]"
+          file_pattern: "app/src/main/assets/articles.json"

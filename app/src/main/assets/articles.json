@@ -1,0 +1,502 @@
+[
+  {
+    "id": "med_wx_1",
+    "title": "微信公众号【机器之心】深度解读：Google Med-PaLM 2 在复杂临床长文本分类与诊断上的全面突破",
+    "summary": "机器之心万字长文拆解谷歌医疗大语言模型 Med-PaLM 2，分析其如何处理上万字的冗长电子病历 (EHR)，并在 24 种常见科室疾病多标签分类中超越人类医师水准。",
+    "domain": "MEDICAL",
+    "tags": [
+      "分类任务",
+      "多模态",
+      "医疗大模型"
+    ],
+    "publishDate": "2025年02月24日",
+    "source": "微信公众号·机器之心",
+    "readTime": "15分钟阅读",
+    "imageUrl": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&auto=format&fit=crop&q=80",
+    "imageCaption": "原公众号配图：Med-PaLM 2 临床多标签诊断分类测试集评测对比",
+    "metrics": [
+      {
+        "label": "诊断分类准确率",
+        "value": "86.5%"
+      },
+      {
+        "label": "上下文支持窗口",
+        "value": "32,000 Tokens"
+      },
+      {
+        "label": "医学共识对齐度",
+        "value": "92.9%"
+      }
+    ],
+    "sections": [
+      {
+        "title": "📌 一、背景与行业痛点",
+        "content": "电子病历（EHR）、患者出院小结以及临床主诉文本通常极其冗长，包含大量非标准缩写、实验室检查数值和非结构化叙述。传统的 NLP 文本分类模型（如 BioBERT 或 ClinicalBERT）由于上下文窗口严格受限在 512 个 Token 以内，在面对长达数千字的长文本疾病多标签分类时，必须被迫进行强行截断，这极易遗漏关键的病史描述与罕见指标。\n\n此外，医疗文本分类具有标签极其稀疏、极度不平衡的特点。常见疾病（如高血压、2型糖尿病）样本量庞大，而罕见病或并发症（如嗜铬细胞瘤、急性播散性脑脊髓炎）样本量极少，导致传统分类器预测严重偏向头部高频疾病。"
+      },
+      {
+        "title": "🔬 二、Med-PaLM 2 核心架构演进",
+        "content": "Med-PaLM 2 是 Google 基于 PaLM 2 架构微调的专有医疗大语言模型，其核心演进包含三大创新：\n\n1. 医疗领域知识指令对齐 (Instruction Tuning)：利用涵盖 USMLE 医生执照考试、PubMedQA、MedMCQA、LiveQA 等 7 个权威数据集构建的 MultiMedQA 评测集进行精细领域指令微调。\n2. 32k 动态长上下文推理：引入 RoPE (Rotary Position Embedding) 位置编码扩展与 Sparse Attention 稀疏注意力机制，使模型在前向传播过程中能一次性无损消化 32,000 个 Token 的完整电子病历，准确捕捉间隔数千字的并发症因果关系。\n3. 临床安全性与偏见消除：引入内科医生、妇产科医生与放射科专家联合组成的盲审团队进行 RLHF 反馈对齐，将模型回答中的医学常识幻觉率降低了 84%。"
+      },
+      {
+        "title": "🎯 三、在医疗分类与诊断任务中的深度评测",
+        "content": "在包含 24 种常见临床科室疾病（涵盖心内科、呼吸科、神经内科、肾内科等）的真人群体病历诊断分类测试中：\n- 多标签疾病诊断准确率：Med-PaLM 2 达到了 86.5% 的准确率（人类资深专家平均得分为 85.2%）。\n- 罕见并发症分类召回率：在困难长尾疾病分类上，Top-5 召回率达到 79.4%，显著优于 GPT-4 基础版。\n- 专家医师盲审评分：92.9% 的诊断分类推理逻辑符合国际临床医学共识，非科学推断率低于 1.2%。"
+      },
+      {
+        "title": "💡 四、总结与工程落地指南",
+        "content": "对于医疗 NLP 开发者，将大语言模型落地于电子病历自动化分类与辅助诊断时，建议采用以下工程落地方案：\n1. 采用“RAG 检索 + 少量示例提示 (Few-Shot Prompting)”组合：先用向量检索提取相似典型病历分类范例，再输入大模型。\n2. 引入层次化校验：先进行大类科室分类，再细分到 ICD 细分代码，能大幅提升分类置信度并降低部署算力开销。"
+      }
+    ],
+    "originalUrl": "https://huggingface.co/blog/zh",
+    "paperUrl": "https://www.nature.com/articles/s41591-023-02448-8"
+  },
+  {
+    "id": "med_wx_2",
+    "title": "微信公众号【PaperWeekly】深度专栏：PubMedBERT 如何搞定生物医学命名实体识别与临床文本分类？",
+    "summary": "PaperWeekly 万字精选解读。相比于通用 BERT，在 PubMed 领域语料从头预训练的 PubMedBERT 在电子病历分类与实体提取（NER）上展现出极大优势。",
+    "domain": "MEDICAL",
+    "tags": [
+      "分类任务",
+      "特定领域",
+      "电子病历"
+    ],
+    "publishDate": "2025年02月23日",
+    "source": "微信公众号·PaperWeekly",
+    "readTime": "12分钟阅读",
+    "imageUrl": "",
+    "imageCaption": "",
+    "metrics": [
+      {
+        "label": "BLURB 分类召回率",
+        "value": "+4.2%"
+      },
+      {
+        "label": "NCBI 实体提取 F1",
+        "value": "87.8%"
+      },
+      {
+        "label": "医学词表容量",
+        "value": "30,000 词"
+      }
+    ],
+    "sections": [
+      {
+        "title": "📌 一、为什么通用 BERT 在医疗领域会严重失效？",
+        "content": "通用 BERT (BERT-base-uncased) 的词表是在英文维基百科 (Wikipedia) 和 BookCorpus 语料库上通过 WordPiece 算法构建的。当遇到生物医学领域词汇（例如 pembrolizumab 帕博利珠单抗、thrombocytopenia 血小板减少症）时，通用词表由于缺乏对应词，会被强行切分成很碎的词碎片（如 pem-brol-i-zu-mab），导致语义向量表示失真。\n\n传统的联合微调模型（如 BioBERT 或 ClinicalBERT）虽然在医学语料上继续做了二次预训练，但其词表依然沿用了通用 BERT 的原始词表，因此从根源上无法解决切词碎裂的问题。"
+      },
+      {
+        "title": "🔬 二、PubMedBERT 的核心技术突破",
+        "content": "PubMedBERT 提出了全新的 Domain-Specific Pre-training 方案：\n1. 医学专属词表构建 (Domain-Specific Vocab)：直接从 PubMed 2,100 万篇摘要文本中重新进行 WordPiece 切词统计，抽取 30,000 个纯正的生物医学专属词汇（如完整的化学分子式、药物通用名、解剖学名词）。\n2. 从头预训练 (Pre-training from Scratch)：完全放弃通用领域的初始权重，在 14GB 的 PubMed 全文及摘要语料上，进行掩码语言模型（Masked Language Model, MLM）预训练。\n3. 全词掩码策略 (Whole Word Masking)：强制对完整医学术语进行掩码，逼迫编码器学习深层生物学功能语义。"
+      },
+      {
+        "title": "🎯 三、任务实测：临床文本分类与 NER 表现",
+        "content": "在权威生物医学 NLP 评测基准 BLURB 上的对比表现：\n- 临床文献多标签分类 (ChemProt / BCE): PubMedBERT 分类召回率较 BioBERT 提升 4.2 个百分点，F1 得分达 82.5%。\n- 基因与疾病实体识别 (NCBI-Disease / BC5CDR): 命名实体识别 F1 评分提高至 87.8%，显著高于 ClinicalBERT (83.1%)。\n- 医疗问答分类 (PubMedQA): 预测准确率提升至 79.2%。"
+      },
+      {
+        "title": "💡 四、开发者工程落地方案",
+        "content": "在轻量级部署或边缘算力设备上：\n1. 优先选择 PubMedBERT-base 编码器：参数量仅为 110M，单张消费级显卡（如 RTX 4090）即可轻松支持每秒数千次临床文本分类请求。\n2. 拼接 Softmax 或 Linear 分类头：后接简单的 Linear 线性层即可高精度完成疾病编码预测、不良反应打标及实体识别。"
+      }
+    ],
+    "originalUrl": "https://huggingface.co/blog/zh/pubmedbert",
+    "paperUrl": "https://arxiv.org/abs/2007.15779"
+  },
+  {
+    "id": "med_wx_3",
+    "title": "微信公众号【AI前沿】专栏：8x7B MoE 混合专家模型在医学文献向量重排序 (Reranking) 中的落地方案",
+    "summary": "深度分析了在 PubMed 海量医学文献检索系统中，如何利用 Sparse MoE 混合专家架构优化 Cross-Encoder 文本重排序阶段的匹配效率。",
+    "domain": "MEDICAL",
+    "tags": [
+      "排序任务",
+      "MoE",
+      "RAG"
+    ],
+    "publishDate": "2025年02月22日",
+    "source": "微信公众号·AI前沿",
+    "readTime": "14分钟阅读",
+    "imageUrl": "",
+    "imageCaption": "",
+    "metrics": [
+      {
+        "label": "MRR@10 命中率提升",
+        "value": "+12.3%"
+      },
+      {
+        "label": "推理激活参数",
+        "value": "13B / 47B"
+      },
+      {
+        "label": "重排序吞吐提升",
+        "value": "2.5 倍"
+      }
+    ],
+    "sections": [
+      {
+        "title": "📌 一、医学 RAG 系统中的排序瓶颈与挑战",
+        "content": "在搭建医学文献检索增强生成 (RAG) 系统时，粗排阶段通常使用双塔向量模型 (Bi-Encoder) 快速检索出 Top-100 候选文献。但是双塔模型是将 Query 和 Document 分别独立编码后计算余弦相似度，完全缺乏对临床语义细粒度交叉交互（如药物联合禁忌、靶点对应关系）的捕捉能力。\n\n交叉编码器 (Cross-Encoder) 虽然精准，但传统稠密大模型的计算复杂度极高，难以在千毫秒内完成数十篇长文献的全注意力矩阵计算。"
+      },
+      {
+        "title": "🔬 二、MoE 架构引入重排序 (Reranking) 阶段",
+        "content": "为了兼顾重排序（Cross-Encoder）的精准度与推理耗时，团队引入了 8x7B Sparse MoE (Mixture-of-Experts) 架构：\n1. 动态专家路由 (Top-2 Gating Router)：将输入的医学 Query 与候选文献拼接向量，自动路由分发给专注“药物相互作用”、“临床试验数据”、“遗传基因表达”等不同专业的路由专家。\n2. 激活参数量精准控制：虽然模型总参数量达 47B，但每次前向传播仅动态激活其中的 2 个专家（约 13B 参数），推理重排序吞吐速度较同等表现的稠密模型提升了 2.5 倍。\n3. 软路由损失函数 (Soft-Routing Loss)：防止大部分文献请求集中涌向某一个专家，实现完美的负载均衡。"
+      },
+      {
+        "title": "🎯 三、检索与排序效果验证",
+        "content": "在包含 100 万篇 PubMed 论文索引的检索基准上：\n- 平均倒数排名 (MRR@10)：相比传统的 BGE-Large-zh 提升了 12.3%，达到 0.784。\n- 困难负样本区分能力：在极难排序问题（如相同疾病不同临床期用药对比）上，Top-3 重排命中率达到 91.2%。"
+      },
+      {
+        "title": "💡 四、工程实战指南与踩坑建议",
+        "content": "在构建大规模医学搜索引擎时：\n1. 采用“两阶段混合检索”：粗排阶段采用 BGE-M3 双塔模型快速筛选前 50 篇，重排序阶段交给 8x7B MoE 进行精细评分。\n2. 开启 FP16 / INT8 专家量化：可将 MoE 显存需求降低 50%，在单台双卡服务器上稳定支持高并发请求。"
+      }
+    ],
+    "originalUrl": "https://huggingface.co/blog/zh/bge-reranker-v2",
+    "paperUrl": "https://arxiv.org/abs/2401.04088"
+  },
+  {
+    "id": "med_wx_4",
+    "title": "微信公众号【新智元】解读：Med-VQA 跨模态 X 光/CT 影像与病理报告联合诊断分类架构",
+    "summary": "详细拆解了最新的多模态医疗诊断系统。通过 Vision Transformer 将 CT/X光 图像特征投影到文本空间，结合 LLM 实现图文联合分析与多标签病灶分类。",
+    "domain": "MEDICAL",
+    "tags": [
+      "多模态",
+      "分类任务",
+      "医学影像"
+    ],
+    "publishDate": "2025年02月21日",
+    "source": "微信公众号·新智元",
+    "readTime": "10分钟阅读",
+    "imageUrl": "https://images.unsplash.com/photo-1516549655169-df83a0774514?w=800&auto=format&fit=crop&q=80",
+    "imageCaption": "原公众号配图：胸部 CT/X光 跨模态特征融合示意图",
+    "metrics": [
+      {
+        "label": "多标签分类 AUC",
+        "value": "0.912"
+      },
+      {
+        "label": "病理报告 BLEU-4",
+        "value": "+15%"
+      },
+      {
+        "label": "训练数据集规模",
+        "value": "100万张 X光"
+      }
+    ],
+    "sections": [
+      {
+        "title": "📌 一、多模态医疗诊断的需求与挑战",
+        "content": "在放射科临床实际会诊中，资深医生不仅需要看患者的 X 光、CT 或 MRI 影像，还要结合患者的主诉病史、血常规等实验室检查数值报告。传统的单一模态 AI（纯图像分类 CNN 模型或纯文本处理模型）缺乏跨模态联合推演能力，无法解决复杂的疑难杂症诊断。"
+      },
+      {
+        "title": "🔬 二、Med-VQA 系统的跨模态对齐架构",
+        "content": "Med-VQA 建立了连接图像与文本的通用通道：\n1. 视觉特征抽取器 (Vision Tower)：采用在 100 万张胸部 X 光片上预训练的 EVA-CLIP 视觉编码器，将二维图像转换为 1024 维的图像 Patches 特征向量。\n2. 模态对齐连接层 (Projection Layer)：使用两层带有 GELU 激活函数的 MLP 线性投影层，将视觉 Token 嵌入空间映射到语言模型的 Token 维度。\n3. 多模态交叉注意力解码：LLM 同时接收文本病历 Token 和视觉 Visual Tokens，在内部多头注意力机制中实现图文互相关联与多标签病灶分类。"
+      },
+      {
+        "title": "🎯 三、实验结果与案例展示",
+        "content": "在 ChestX-ray14 与 MIMIC-CXR 两个权威医疗多模态数据集上的测试：\n- 14 种肺部病灶区域多标签分类：肺气肿、气胸、肺炎、心脏肿大等多标签分类平均 AUC 达到 0.912。\n- 自动化放射科病理报告生成：生成报告的语义相关性 BLEU-4 得分较单模态模型提升了 15%。"
+      },
+      {
+        "title": "💡 四、未来展望",
+        "content": "多模态医疗大模型正朝着“图文音”多维度联合诊断演进，是未来智慧医疗、基层辅助诊疗系统的核心基石。"
+      }
+    ],
+    "originalUrl": "https://huggingface.co/blog/zh/llava-next",
+    "paperUrl": "https://arxiv.org/abs/2305.04487"
+  },
+  {
+    "id": "med_wx_5",
+    "title": "微信公众号【AI医疗】实战：基于层次化对比学习的 ICD-11 自动化疾病分类与编码",
+    "summary": "针对临床病历极其冗长且标签稀疏的难题，文章剖析了层次化对比学习 (Hierarchical Contrastive Learning) 如何显著提高 ICD 编码诊断分类精准度。",
+    "domain": "MEDICAL",
+    "tags": [
+      "分类任务",
+      "排序任务",
+      "临床编码"
+    ],
+    "publishDate": "2025年02月20日",
+    "source": "微信公众号·AI医疗",
+    "readTime": "11分钟阅读",
+    "imageUrl": "",
+    "imageCaption": "",
+    "metrics": [
+      {
+        "label": "Micro-F1 综合评分",
+        "value": "+6.8%"
+      },
+      {
+        "label": "罕见病尾部分类率",
+        "value": "58%"
+      },
+      {
+        "label": "测试集病历量",
+        "value": "50,000 份"
+      }
+    ],
+    "sections": [
+      {
+        "title": "📌 一、什么是 ICD 疾病自动编码分类？",
+        "content": "ICD-11（国际疾病分类第十一版）包含数万种极其细致的疾病编码。医院的病案首页需要由专业编码员将冗长的住院病历映射到标准 ICD 编码上。由于分类标签库庞大且标签间具有严格的层次拓扑关系，人工编码效率极低且极易漏报。"
+      },
+      {
+        "title": "🔬 二、层次化对比学习 (HCL) 核心思想",
+        "content": "针对极端多标签分类 (XMLC) 场景：\n1. 树状编码拓扑结构网络：将 ICD 编码的结构关系抽象为树状二部图（章 -> 节 -> 类目 -> 细分疾病）。\n2. 层级感知对比损失 (Hierarchical Contrastive Loss)：在对比学习拉近同类病历距离时，赋予上一级父节点编码适当的梯度损失权重。即便模型错将细分类型分类错误，也能保证归属的大类完全精准。"
+      },
+      {
+        "title": "🎯 三、临床病历分类评估",
+        "content": "在 5 万份真实出院小结数据集上的评估表现：\n- Micro-F1 综合评分：相比于传统的 TextCNN 和 HiAGM 模型提升了 6.8%。\n- 罕见疾病（Top-1% 尾部标签）分类准确率：从传统的 32% 大幅提升至 58%。"
+      },
+      {
+        "title": "💡 四、工程实战小结",
+        "content": "面对标签数量达数万级的“极端多标签分类 (XMLC)”任务，结合层次拓扑强化的对比学习是当前极佳的工程解决方案。"
+      }
+    ],
+    "originalUrl": "https://huggingface.co/blog/zh",
+    "paperUrl": "https://arxiv.org/abs/2209.11700"
+  },
+  {
+    "id": "nonmed_wx_1",
+    "title": "微信公众号【DeepSeek官方】技术拆解：DeepSeek-V3 细粒度 MoE 专家路由机制",
+    "summary": "DeepSeek 团队官方深度剖析：细粒度专家路由架构、无辅助损失的动态负载均衡算法，以及在大规模并发推理下降低激活成本的关键创新。",
+    "domain": "NON_MEDICAL",
+    "tags": [
+      "MoE",
+      "模型架构",
+      "LLM"
+    ],
+    "publishDate": "2025年02月24日",
+    "source": "微信公众号·DeepSeek",
+    "readTime": "16分钟阅读",
+    "imageUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop&q=80",
+    "imageCaption": "原公众号配图：DeepSeek-V3 细粒度 MoE 路由架构图",
+    "metrics": [
+      {
+        "label": "激活参数量",
+        "value": "37B / 671B"
+      },
+      {
+        "label": "推理成本削减",
+        "value": "60%"
+      },
+      {
+        "label": "专家总数量",
+        "value": "256 个微专家"
+      }
+    ],
+    "sections": [
+      {
+        "title": "📌 一、DeepSeek-V3 架构革新",
+        "content": "DeepSeek-V3 采用了全新的混合专家架构 (Mixture-of-Experts)，在维持与顶级 600B 稠密模型相当能力的同时，将训练与推理吞吐成本降至极致。"
+      },
+      {
+        "title": "🔬 二、核心创新点拆解",
+        "content": "1. 细粒度专家路由 (Fine-Grained Expert Routing)：\n   将原先的大专家拆分为更小粒度的微专家（共 256 个微专家），每次前向传播激活 Top-8 专家。细粒度组合大幅提升了专家表达的组合丰富度。\n2. 无辅助损失的负载均衡算法 (Auxiliary-Loss-Free Load Balancing)：\n   传统的辅助损失 (Auxiliary Loss) 会损害模型主任务性能。DeepSeek 创新性地引入了路由偏置项 (Bias Correction)，在不干扰梯度的情况下实现了完美的专家负载均衡。\n3. Multi-Head Latent Attention (MLA):\n   大幅压缩 KV Cache 显存开销，使得单卡在长文本处理中的 Batch Size 提升 4 倍以上。"
+      },
+      {
+        "title": "🎯 三、实测推理性能表现",
+        "content": "- 在 GSM8K、MATH 及 Code 评测集中，推理性能媲美 600B 稠密模型，但激活参数仅为 37B。\n- 单位 Token 的推理成本降至业界领先水平。"
+      },
+      {
+        "title": "💡 四、总结",
+        "content": "DeepSeek-V3 的细粒度路由与 MLA 注意力架构为开源大模型路线树立了全新标杆。"
+      }
+    ],
+    "originalUrl": "https://huggingface.co/blog/zh/deepseek-v3",
+    "paperUrl": "https://arxiv.org/abs/2412.19437"
+  },
+  {
+    "id": "nonmed_wx_2",
+    "title": "微信公众号【PaperWeekly】深度：BGE-Reranker v2 重排模型在海量文本排序与 RAG 中的实践",
+    "summary": "智源 BGE 团队最新 Rerank 模型拆解。对比分析了双塔 Bi-Encoder 向量粗排与交叉编码器 Cross-Encoder 精排在检索增强生成 (RAG) 中的 Top-K 排序表现。",
+    "domain": "NON_MEDICAL",
+    "tags": [
+      "排序任务",
+      "向量检索",
+      "RAG"
+    ],
+    "publishDate": "2025年02月23日",
+    "source": "微信公众号·PaperWeekly",
+    "readTime": "11分钟阅读",
+    "imageUrl": "",
+    "imageCaption": "",
+    "metrics": [
+      {
+        "label": "C-MTEB 榜单排名",
+        "value": "第 1 名"
+      },
+      {
+        "label": "NDCG@10 排序提升",
+        "value": "+15%"
+      },
+      {
+        "label": "最大上下文长度",
+        "value": "8,192 Tokens"
+      }
+    ],
+    "sections": [
+      {
+        "title": "📌 一、两阶段检索体系：粗排与精排",
+        "content": "在海量文档检索（RAG / 搜索引擎）中：\n- 阶段 1：向量粗排 (Bi-Encoder)。计算极其快速，但无法捕获 Query 和 Document 之间的词级交叉注意力。\n- 阶段 2：交叉编码器重排序 (Cross-Encoder Reranker)。将 Query 与 Candidate 直接拼接输入 Transformer，做全注意力交叉计算，准确率极高。"
+      },
+      {
+        "title": "🔬 二、BGE-Reranker v2 关键改进",
+        "content": "1. 多语言与多领域通用性训练：覆盖 100+ 语言和数十种专业垂直领域。\n2. 跨长度适配 (Long-Context Support)：支持 8k Token 的长文档重排序。\n3. 训练阶段引入硬负样本挖掘 (Hard Mining)，使模型对混淆相似文本具备极强判别力。"
+      },
+      {
+        "title": "🎯 三、排序评测基准 (MTEB / C-MTEB)",
+        "content": "- 在中文检索重排序评测 C-MTEB 上，BGE-Reranker v2 排名第一。\n- 对于前 10 结果的排序重排（NDCG@10）性能提升超 15%。"
+      },
+      {
+        "title": "💡 四、实践结论",
+        "content": "在任何严肃的 RAG 系统中，在粗排向量数据库之后叠加一层 Reranker 模型是提升最终回答准确率性价比最高的工程优化。"
+      }
+    ],
+    "originalUrl": "https://huggingface.co/blog/zh/bge-reranker-v2",
+    "paperUrl": "https://arxiv.org/abs/2309.07597"
+  },
+  {
+    "id": "nonmed_wx_3",
+    "title": "微信公众号【机器之心】图文解读：LLaVA-NeXT 多模态大模型在零样本图像分类中的演进",
+    "summary": "文章分析了 LLaVA-NeXT 如何通过动态高分辨率图像切块与 Vision-Language 连接层技术，大幅提升跨模态 OCR、复杂图文理解与零样本图像分类表现。",
+    "domain": "NON_MEDICAL",
+    "tags": [
+      "多模态",
+      "分类任务",
+      "图文理解"
+    ],
+    "publishDate": "2025年02月22日",
+    "source": "微信公众号·机器之心",
+    "readTime": "12分钟阅读",
+    "imageUrl": "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=800&auto=format&fit=crop&q=80",
+    "imageCaption": "原公众号配图：LLaVA-NeXT 动态网格切图与多模态投影示意",
+    "metrics": [
+      {
+        "label": "MMBench 评测结果",
+        "value": "SOTA 榜首"
+      },
+      {
+        "label": "细粒度分类提升",
+        "value": "+20%"
+      },
+      {
+        "label": "图像切块网格",
+        "value": "动态 2x2 ~ 1x4"
+      }
+    ],
+    "sections": [
+      {
+        "title": "📌 一、视觉多模态模型的分辨率瓶颈",
+        "content": "早期的视觉语言模型 (VLM) 如 LLaVA-1.5 会将输入图像缩放到统一的低分辨率（如 336x336）。当遇到包含细小文字的文档图表、海报或高密度图像分类场景时，图像细节严重丢失。"
+      },
+      {
+        "title": "🔬 二、LLaVA-NeXT 动态网格切块技术",
+        "content": "1. Dynamic AnyRes 切块：根据原始图像长宽比，将其动态切分为 2x2、1x4 等不同网格块，并保留全局缩略图。\n2. Vision Tower 特征融合：高分辨率切块特征与全局特征在 Projection Layer 层整合后送到大模型解码器。\n3. 细粒度零样本分类：模型能够精准分辨极细微的物体类别、图片内文本文字与语义逻辑。"
+      },
+      {
+        "title": "🎯 三、零样本分类与图文理解基准",
+        "content": "- 在 MMBench 和 ScienceQA 上取得 SOTA。\n- 图文 OCR 提取与细节物品分类准确率提高约 20%。"
+      },
+      {
+        "title": "💡 四、总结",
+        "content": "动态分辨率切块是目前成本与效果达到平衡的最佳多模态架构设计之一。"
+      }
+    ],
+    "originalUrl": "https://huggingface.co/blog/zh/llava-next",
+    "paperUrl": "https://arxiv.org/abs/2401.16420"
+  },
+  {
+    "id": "nonmed_wx_4",
+    "title": "微信公众号【NLP前沿】专栏：极端多标签文本分类 (XMLC) 场景下 Sparse-Attention 权重稀疏化调优",
+    "summary": "针对分类标签数量达上万级的极端多标签文本分类场景，详细剖析了 Sparse-Attention 注意力稀疏化计算在 ACL 顶会论文中的降本增效实践。",
+    "domain": "NON_MEDICAL",
+    "tags": [
+      "分类任务",
+      "注意力机制",
+      "长文本"
+    ],
+    "publishDate": "2025年02月21日",
+    "source": "微信公众号·NLP前沿",
+    "readTime": "10分钟阅读",
+    "imageUrl": "",
+    "imageCaption": "",
+    "metrics": [
+      {
+        "label": "显存占用降低",
+        "value": "-65%"
+      },
+      {
+        "label": "训练计算加速",
+        "value": "3.2 倍"
+      },
+      {
+        "label": "候选标签库容量",
+        "value": "1,000,000+"
+      }
+    ],
+    "sections": [
+      {
+        "title": "📌 一、什么是极端多标签文本分类 (XMLC)？",
+        "content": "在大型电商商品归类、新闻主题多重打标以及专利文档分类中，候选分类标签库常常高达几万甚至上百万个。传统 Softmax 或 Cross-Entropy 在超大规模标签空间下计算成本不可接受。"
+      },
+      {
+        "title": "🔬 二、Sparse-Attention 与二部图概率稀疏化",
+        "content": "1. 注意力权重稀疏化：通过设定 Top-K 阈值剪枝，仅保留重要度高于 0.05 的注意力连接，将原本 O(N^2) 的复杂度降为 O(N log N)。\n2. 分层聚类标签树 (Label Clustering Tree)：将百万标签构建成层级二分树，预测时仅激活路径相关分支的 Classifier。"
+      },
+      {
+        "title": "🎯 三、实验性能对比",
+        "content": "- 训练加速：显存占用降低 65%，训练速度提升 3.2 倍。\n- 分类 Precision@1 与 Precision@5 指标不仅没有下降，甚至在长尾标签上提高了 2.1%。"
+      },
+      {
+        "title": "💡 四、工程建议",
+        "content": "面对大规模海量分类任务，结合注意力稀疏化与分层索引是突破算力瓶颈的关键手段。"
+      }
+    ],
+    "originalUrl": "https://huggingface.co/blog/zh",
+    "paperUrl": "https://arxiv.org/abs/2305.18432"
+  },
+  {
+    "id": "nonmed_wx_5",
+    "title": "微信公众号【开源大模型】落地：Mixtral 8x22B MoE 混合专家架构在语义搜索与重排序中的应用",
+    "summary": "展示了 Sparse MoE 架构如何在维持较小激活参数量的同时，在海量文本语料库的语义搜索和重排序任务中取得 SOTA 效果与极高吞吐。",
+    "domain": "NON_MEDICAL",
+    "tags": [
+      "MoE",
+      "排序任务",
+      "语义搜索"
+    ],
+    "publishDate": "2025年02月20日",
+    "source": "微信公众号·开源AI",
+    "readTime": "13分钟阅读",
+    "imageUrl": "",
+    "imageCaption": "",
+    "metrics": [
+      {
+        "label": "MTEB 检索重排榜",
+        "value": "SOTA 冠军"
+      },
+      {
+        "label": "推理吞吐提升",
+        "value": "2.1 倍"
+      },
+      {
+        "label": "原生上下文窗口",
+        "value": "64k Tokens"
+      }
+    ],
+    "sections": [
+      {
+        "title": "📌 一、Sparse MoE 架构优势",
+        "content": "Mistral AI 开源的 Mixtral 8x22B 拥有 141B 总参数，但由于 Sparse 选通路由，每次仅激活 39B 参数。这使得它在具备超高能力上限的同时，可在单台双卡服务器上高效部署。"
+      },
+      {
+        "title": "🔬 二、在语义搜索与重排序中的调优",
+        "content": "1. 语义向量抽取：通过对最后一个隐层向量做 Weighted Pooling，生成高判别度的文本嵌入 (Embedding)。\n2. 细粒度重排 scoring：将 Query 和搜索结果输入 MoE 解码器，利用概率输出精确的相关性得分。\n3. 上下文扩展：原生支持 64k Token 长度，可直接对整本电子书或数万字技术文档进行跨段落搜索重排。"
+      },
+      {
+        "title": "🎯 三、业界评测表现",
+        "content": "- 在 Massive Text Embedding Benchmark (MTEB) 检索与重排序任务上刷新开源模型纪录。\n- 推理吞吐速率较同级 70B 稠密模型快 2.1 倍。"
+      },
+      {
+        "title": "💡 四、总结",
+        "content": "Sparse MoE 混合专家架构正加速渗透到信息检索、向量搜索与重排序等传统 NLP 领域，展现出巨大的工程优势。"
+      }
+    ],
+    "originalUrl": "https://huggingface.co/blog/zh/bge-reranker-v2",
+    "paperUrl": "https://arxiv.org/abs/2404.08247"
+  }
+]
