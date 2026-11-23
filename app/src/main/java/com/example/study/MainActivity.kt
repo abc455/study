@@ -185,16 +185,43 @@ fun MainScreen() {
 @Composable
 fun DailyPushFeedScreen(onArticleClick: (ArticleItem) -> Unit) {
     val context = androidx.compose.ui.platform.LocalContext.current
-    val sampleArticles = remember(context) { loadArticles(context) }
+    var sampleArticles by remember { mutableStateOf(loadArticles(context)) }
     var selectedFilter by remember { mutableStateOf("全部") }
 
-    val filterOptions = listOf("全部", "🏥 医疗领域", "🌐 非医疗领域", "MoE", "多模态", "分类任务", "排序任务")
+    // 自动联网异步拉取 GitHub 云端 GitHub Actions 每日生成的最新文章 JSON 接口
+    LaunchedEffect(Unit) {
+        kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.IO) {
+            try {
+                val cloudUrl = "https://raw.githubusercontent.com/abc455/study/main/app/src/main/assets/articles.json"
+                val url = java.net.URL(cloudUrl)
+                val conn = url.openConnection() as java.net.HttpURLConnection
+                conn.connectTimeout = 4000
+                conn.readTimeout = 4000
+                conn.requestMethod = "GET"
+
+                if (conn.responseCode == 200) {
+                    val jsonStr = conn.inputStream.bufferedReader().use { it.readText() }
+                    val cloudArticles = parseArticlesJsonString(jsonStr)
+                    if (cloudArticles.isNotEmpty()) {
+                        kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Main) {
+                            sampleArticles = cloudArticles
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    val filterOptions = listOf("全部", "📅 历史归档", "🏥 医疗领域", "🌐 非医疗领域", "MoE", "多模态", "分类任务", "排序任务")
 
     val filteredArticles = remember(selectedFilter, sampleArticles) {
         sampleArticles.filter { article ->
             when (selectedFilter) {
                 "🏥 医疗领域" -> article.domain == DomainType.MEDICAL
                 "🌐 非医疗领域" -> article.domain == DomainType.NON_MEDICAL
+                "📅 历史归档" -> true
                 "全部" -> true
                 else -> article.tags.contains(selectedFilter)
             }
@@ -211,14 +238,14 @@ fun DailyPushFeedScreen(onArticleClick: (ArticleItem) -> Unit) {
         ) {
             Column(modifier = Modifier.padding(12.dp)) {
                 Text(
-                    text = "📅 今日精选推荐 (10篇全文解读)",
+                    text = "📅 NLP 每日精选 (已持续累积 ${sampleArticles.size} 篇解读)",
                     fontWeight = FontWeight.Bold,
                     fontSize = 15.sp,
                     color = MaterialTheme.colorScheme.onSecondaryContainer
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = "包含 5 篇医疗 NLP + 5 篇前沿 NLP（涵盖分类、排序、MoE 与多模态），点击可查看完整解读。",
+                    text = "每日自动更新 5 篇医疗 NLP + 5 篇前沿 NLP，历史文章永久沉淀归档，不被覆盖，方便随时回看。",
                     fontSize = 12.sp,
                     color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.8f)
                 )
@@ -1227,11 +1254,10 @@ fun MainScreenPreview() {
     }
 }
 
-// ====================== JSON 数据加载（支持实爬/网络/Asset） ======================
+// ====================== JSON 数据加载（支持实爬/GitHub云端/Asset） ======================
 
-fun loadArticles(context: android.content.Context): List<ArticleItem> {
+fun parseArticlesJsonString(jsonString: String): List<ArticleItem> {
     try {
-        val jsonString = context.assets.open("articles.json").bufferedReader().use { it.readText() }
         val jsonArray = org.json.JSONArray(jsonString)
         val list = mutableListOf<ArticleItem>()
         for (i in 0 until jsonArray.length()) {
@@ -1284,7 +1310,18 @@ fun loadArticles(context: android.content.Context): List<ArticleItem> {
                 )
             )
         }
-        if (list.isNotEmpty()) return list
+        return list
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+    return emptyList()
+}
+
+fun loadArticles(context: android.content.Context): List<ArticleItem> {
+    try {
+        val jsonString = context.assets.open("articles.json").bufferedReader().use { it.readText() }
+        val parsed = parseArticlesJsonString(jsonString)
+        if (parsed.isNotEmpty()) return parsed
     } catch (e: Exception) {
         e.printStackTrace()
     }

@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-中文微信公众号与学术论文超长深度全文生成脚本
-为 10 篇论文解读生成包含 3000+ 字超长深度解析、公式推导、超参数配置、测试集微观表现与工程指南的丰富文章。
+中文微信公众号与学术论文超长深度全文生成脚本 (支持历史持续累积不覆盖)
+每次运行合并新文章与已有文章库，按发布日期倒序排列，保证文章持续沉淀与积累！
 """
 
 import json
 import os
 
-QUALITY_CHINESE_ARTICLES = [
+NEW_DAILY_ARTICLES = [
     # 5 篇 医疗 NLP 微信公众号解读
     {
         "id": "med_wx_1",
@@ -387,10 +387,27 @@ def generate_chinese_articles_json():
     output_path = os.path.join(os.path.dirname(__file__), "app", "src", "main", "assets", "articles.json")
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
-    with open(output_path, "w", encoding="utf-8") as f:
-        json.dump(QUALITY_CHINESE_ARTICLES, f, ensure_ascii=False, indent=2)
+    existing_articles = []
+    if os.path.exists(output_path):
+        try:
+            with open(output_path, "r", encoding="utf-8") as f:
+                existing_articles = json.load(f)
+        except Exception:
+            existing_articles = []
 
-    print(f"✅ 已成功扩充为包含深入行业剖析、完整理论演进与详细评测的长篇深度解读书库！")
+    # 按照文章 id 去重合并（保留旧文章，追加新文章）
+    article_dict = {item["id"]: item for item in existing_articles}
+    for new_item in NEW_DAILY_ARTICLES:
+        article_dict[new_item["id"]] = new_item
+
+    # 合并后的完整文章库，并按发布日期降序排列
+    final_list = list(article_dict.values())
+    final_list.sort(key=lambda x: x.get("publishDate", ""), reverse=True)
+
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(final_list, f, ensure_ascii=False, indent=2)
+
+    print(f"✅ 成功完成合并！当前已累积收录 {len(final_list)} 篇历史与最新深度解读文章（无覆盖，永久沉淀）！")
     print(f"保存位置: {output_path}")
 
 if __name__ == "__main__":
